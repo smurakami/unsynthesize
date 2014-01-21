@@ -19,9 +19,30 @@ def getTargets(filename):
         for line in f:
             m = re.match(r"@synthesize (\w+);", line)
             if m:
-                print line,
                 var = m.group(1)
                 variables.append(var)
+    return variables
+
+def getText(filename):
+    """
+    ファイルをとりあえず保存
+    """
+    text = []
+    with open(filename, "r") as f:
+        for line in f:
+            text.append(line)
+    return text
+
+def unSynthesize(filename):
+    """
+    @synthesizeを外す
+    """
+    variables = getTargets(filename)
+    text = getText(filename)
+    for v in variables:
+        print v,
+    for line in text:
+        print line,
 
 
 if __name__ == "__main__":
@@ -31,6 +52,7 @@ if __name__ == "__main__":
         quit()
 
     filename = argv[1]
-    getTargets(filename)
+    unSynthesize(filename)
+
 
 

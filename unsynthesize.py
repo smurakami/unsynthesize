@@ -45,7 +45,7 @@ def unSynthesize(filename):
                 continue
             for var in variables:
                 if var in line:
-                    line = re.sub(r'(?<!\.)%s' % var, '_%s' % var, line);
+                    line = re.sub(r'(?<!\.)%s([^\w])' % var, r'_%s\1' % var, line);
             f.write(line)
 
 

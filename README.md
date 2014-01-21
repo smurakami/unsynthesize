@@ -45,7 +45,7 @@ $ python unsynthesize.py foo.m
 Foo * foo = [[Foo alloc] init:3];
 NSLog(@"%d", foo.bar);
 ```
-のように外からプロパティにアクセスできるようになりました。`@synthesize`文は冗長性があるので、個人的には使用したくないです。そこで、上記Foo.mを入力として受け取り、
+のように外からプロパティにアクセスできるようになりました。`@synthesize`文は冗長なので、個人的には使用したくないです。そこで、上記Foo.mを入力として受け取り、
 
 ```Foo.m
 #import "Foo.h"

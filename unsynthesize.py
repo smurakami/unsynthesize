@@ -2,9 +2,9 @@
 
 """
 iosアプリのリファクタリングツール
-.mファイル中のsynthesizeを外して、
-ソース中のプロパティ変数の先頭に"_"(アンダースコア)を
-挿入する。
+.mファイル中の@synthesizeを外して、
+それまでに@synthesizeされていたプロパティ変数の先頭に
+"_"(アンダースコア)を挿入する。
 """
 
 import sys
@@ -39,10 +39,14 @@ def unSynthesize(filename):
     """
     variables = getTargets(filename)
     text = getText(filename)
-    for v in variables:
-        print v,
-    for line in text:
-        print line,
+    with open(filename, "w") as f:
+        for line in text:
+            if re.match(r"@synthesize (\w+);", line):
+                continue
+            for var in variables:
+                if var in line:
+                    line = line.replace(var, "_%s" % var )
+            f.write(line)
 
 
 if __name__ == "__main__":
